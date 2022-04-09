@@ -77,7 +77,7 @@ func (transaction *Transaction) isSameAccountValid() error {
 	return nil
 }
 
-func newTransaction(accountFrom *Account, amount float64, pixKeyTo *PixKey, description string) (*Transaction, error) {
+func NewTransaction(accountFrom *Account, amount float64, pixKeyTo *PixKey, description string) (*Transaction, error) {
 	transaction := Transaction{
 		Id:                uuid.NewV4().String(),
 		AccountFrom:       accountFrom,
@@ -96,9 +96,20 @@ func newTransaction(accountFrom *Account, amount float64, pixKeyTo *PixKey, desc
 	return &transaction, nil
 }
 
-func (transaction *Transaction) changeStatus(newStatus string) error {
+func changeStatusAndUpdate(transaction *Transaction, newStatus string) {
 	transaction.Status = newStatus
 	transaction.UpdatedAt = time.Now()
+}
+
+func (transaction *Transaction) Complete() error {
+	changeStatusAndUpdate(transaction, TRANSACTION_COMPLETED)
+	err := transaction.isValid()
+	return err
+}
+
+func (transaction *Transaction) Cancel(cancelDescription string) error {
+	changeStatusAndUpdate(transaction, TRANSACTION_CANCELED)
+	transaction.CancelDescription = cancelDescription
 	err := transaction.isValid()
 	return err
 }

@@ -25,7 +25,7 @@ func (bank *Bank) isValid() error {
 }
 
 // this is only a function, and it isn't associate to Struct Bank
-func newBank(code string, name string) (*Bank, error) {
+func NewBank(code string, name string) (*Bank, error) {
 	bank := Bank{
 		Id:        uuid.NewV4().String(),
 		Code:      code,
