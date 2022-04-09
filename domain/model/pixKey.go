@@ -25,7 +25,7 @@ const (
 type PixKey struct {
 	Id        string    `json:"id" valid:"required"`
 	Kind      string    `json:"type" valid:"notnull"`
-	Key       string    `json:"key" valir:"notnull"`
+	Key       string    `json:"key" valid:"notnull"`
 	AccountId string    `json:"accountId" valid:"notnull"`
 	Account   *Account  `valid:"-"`
 	Status    string    `json:"status" valid:"notnull"`
@@ -63,7 +63,7 @@ func (pixKey *PixKey) isStatusValid() error {
 	return nil
 }
 
-func newPixKey(kind string, account *Account, key string) (*PixKey, error) {
+func NewPixKey(kind string, account *Account, key string) (*PixKey, error) {
 	pixKey := PixKey{
 		Id:        uuid.NewV4().String(),
 		Kind:      kind,

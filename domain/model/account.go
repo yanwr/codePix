@@ -24,7 +24,7 @@ func (account *Account) isValid() error {
 	return nil
 }
 
-func newAccount(bank *Bank, ownerName string, number string) (*Account, error) {
+func NewAccount(bank *Bank, ownerName string, number string) (*Account, error) {
 	account := Account{
 		Id:        uuid.NewV4().String(),
 		OwnerName: ownerName,
