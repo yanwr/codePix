@@ -10,7 +10,7 @@ type PixKeyRepository struct {
 	Db *gorm.DB
 }
 
-func (r *PixKeyRepository) register(pixKey *model.PixKey) error {
+func (r *PixKeyRepository) Register(pixKey *model.PixKey) error {
 	err := r.Db.Create(pixKey).Error
 	if err != nil {
 		return err
@@ -18,7 +18,7 @@ func (r *PixKeyRepository) register(pixKey *model.PixKey) error {
 	return nil
 }
 
-func (r *PixKeyRepository) findByKind(key string, kind string) (*model.PixKey, error) {
+func (r *PixKeyRepository) FindByKind(key string, kind string) (*model.PixKey, error) {
 	var pixKey model.PixKey
 	// Preloads find all joins
 	r.Db.Preload("Account.Bank").First(&pixKey, "kind = ? AND key = ?", kind, key)
@@ -28,7 +28,7 @@ func (r *PixKeyRepository) findByKind(key string, kind string) (*model.PixKey, e
 	return &pixKey, nil
 }
 
-func (r *PixKeyRepository) addBank(bank *model.Bank) error {
+func (r *PixKeyRepository) AddBank(bank *model.Bank) error {
 	// how I've already validated data in Model here I just create in db
 	err := r.Db.Create(bank).Error
 	if err != nil {
@@ -37,7 +37,7 @@ func (r *PixKeyRepository) addBank(bank *model.Bank) error {
 	return nil
 }
 
-func (r *PixKeyRepository) findBank(bankId string) (*model.Bank, error) {
+func (r *PixKeyRepository) FindBank(bankId string) (*model.Bank, error) {
 	var bank model.Bank
 	r.Db.First(&bank, "id = ?", bankId)
 	if bank.Id == "" {
@@ -46,7 +46,7 @@ func (r *PixKeyRepository) findBank(bankId string) (*model.Bank, error) {
 	return &bank, nil
 }
 
-func (r *PixKeyRepository) addAccount(account *model.Account) error {
+func (r *PixKeyRepository) AddAccount(account *model.Account) error {
 	err := r.Db.Create(account).Error
 	if err != nil {
 		return err
@@ -54,7 +54,7 @@ func (r *PixKeyRepository) addAccount(account *model.Account) error {
 	return nil
 }
 
-func (r *PixKeyRepository) findAccount(accountId string) (*model.Account, error) {
+func (r *PixKeyRepository) FindAccount(accountId string) (*model.Account, error) {
 	var account model.Account
 	r.Db.Preload("Bank").First(&account, "id = ?", accountId)
 	if account.Id == "" {

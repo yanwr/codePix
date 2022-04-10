@@ -7,13 +7,14 @@ import (
 	"time"
 )
 
+// the interface will be implement on UseCase == Service
 type PixKeyRepository interface {
-	register(pixKey *PixKey) (*PixKey, error)
-	findByKind(key string, kind string) (*PixKey, error)
-	addBank(bank *Bank) error
-	findBank(bankId string) (*Bank, error)
-	addAccount(account *Account) error
-	findAccount(accountId string) (*Account, error)
+	Register(pixKey *PixKey) error
+	FindByKind(key string, kind string) (*PixKey, error)
+	AddBank(bank *Bank) error
+	FindBank(bankId string) (*Bank, error)
+	AddAccount(account *Account) error
+	FindAccount(accountId string) (*Account, error)
 }
 
 const (
@@ -70,8 +71,10 @@ func NewPixKey(kind string, account *Account, key string) (*PixKey, error) {
 		Kind:      kind,
 		Key:       key,
 		Account:   account,
+		AccountId: account.Id,
 		Status:    ACTIVE,
 		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
 	}
 
 	err := pixKey.isValid()
