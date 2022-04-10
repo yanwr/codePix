@@ -17,8 +17,8 @@ func TestShouldCreateANewTransaction(t *testing.T) {
 	account, err := model.NewAccount(bank, ownerName, accountNumber)
 
 	accountNumberDestination := "6625"
-	ownerName = "Mariana Nogueira"
-	accountDestination, _ := model.NewAccount(bank, accountNumberDestination, ownerName)
+	ownerNameDestination := "Mariana Nogueira"
+	accountDestination, _ := model.NewAccount(bank, accountNumberDestination, ownerNameDestination)
 
 	kind := model.EMAIL
 	key := "jsilveira@gmail.com"

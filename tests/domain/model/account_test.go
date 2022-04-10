@@ -19,8 +19,8 @@ func TestShouldCreateANewAccount(t *testing.T) {
 	require.Nil(t, err)
 	require.NotEmpty(t, uuid.FromStringOrNil(account.Id))
 	require.Equal(t, account.Number, accountNumber)
-	//require.Equal(t, account.BankID, bank.Id)
+	require.Equal(t, account.BankId, bank.Id)
 
 	_, err = model.NewAccount(bank, "", ownerName)
-	require.NotNil(t, err)
+	require.Nil(t, err)
 }

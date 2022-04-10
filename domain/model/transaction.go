@@ -8,9 +8,9 @@ import (
 )
 
 type TransactionRepository interface {
-	register(transaction *Transaction) error
-	save(transaction *Transaction) error
-	find(transactionId string) (*Transaction, error)
+	Register(transaction *Transaction) error
+	Save(transaction *Transaction) error
+	Find(transactionId string) (*Transaction, error)
 }
 
 const (
@@ -79,16 +79,38 @@ func (transaction *Transaction) isSameAccountValid() error {
 	return nil
 }
 
+func (transaction *Transaction) Complete() error {
+	changeStatusAndUpdate(transaction, TRANSACTION_COMPLETED)
+	err := transaction.isValid()
+	return err
+}
+
+func (transaction *Transaction) Confirm() error {
+	changeStatusAndUpdate(transaction, TRANSACTION_CONFIRMED)
+	err := transaction.isValid()
+	return err
+}
+
+func (transaction *Transaction) Cancel(cancelDescription string) error {
+	changeStatusAndUpdate(transaction, TRANSACTION_CANCELED)
+	transaction.CancelDescription = cancelDescription
+	err := transaction.isValid()
+	return err
+}
+
 func NewTransaction(accountFrom *Account, amount float64, pixKeyTo *PixKey, description string) (*Transaction, error) {
 	transaction := Transaction{
 		Id:                uuid.NewV4().String(),
 		AccountFrom:       accountFrom,
+		AccountFromId:     accountFrom.Id,
 		Amount:            amount,
 		PixKeyTo:          pixKeyTo,
+		PixKeyToId:        pixKeyTo.Id,
 		Status:            TRANSACTION_PENDING,
 		Description:       description,
 		CancelDescription: "",
 		CreatedAt:         time.Now(),
+		UpdatedAt:         time.Now(),
 	}
 
 	err := transaction.isValid()
@@ -101,17 +123,4 @@ func NewTransaction(accountFrom *Account, amount float64, pixKeyTo *PixKey, desc
 func changeStatusAndUpdate(transaction *Transaction, newStatus string) {
 	transaction.Status = newStatus
 	transaction.UpdatedAt = time.Now()
-}
-
-func (transaction *Transaction) Complete() error {
-	changeStatusAndUpdate(transaction, TRANSACTION_COMPLETED)
-	err := transaction.isValid()
-	return err
-}
-
-func (transaction *Transaction) Cancel(cancelDescription string) error {
-	changeStatusAndUpdate(transaction, TRANSACTION_CANCELED)
-	transaction.CancelDescription = cancelDescription
-	err := transaction.isValid()
-	return err
 }

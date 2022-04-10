@@ -8,8 +8,8 @@ import (
 
 type Bank struct {
 	Id        string     `json:"id" gorm:"type:uuid;primary_key" valid:"required"`
-	Code      string     `json:"code" gorm:"type:varchar(20);not null" valid:"notnull"`
-	Name      string     `json:"name" gorm:"type:varchar(255);not null" valid:"notnull"`
+	Code      string     `json:"code" gorm:"type:varchar(20);not null" valid:"required"`
+	Name      string     `json:"name" gorm:"type:varchar(255);not null" valid:"required"`
 	Accounts  []*Account `gorm:"ForeignKey:BankId" valid:"-"`
 	CreatedAt time.Time  `json:"createdAt" valid:"required"`
 	UpdatedAt time.Time  `json:"updatedAt" valid:"required"`
@@ -24,13 +24,14 @@ func (bank *Bank) isValid() error {
 	return nil
 }
 
-// this is only a function, and it isn't associate to Struct Bank
+// NewBank this is only a function, and it isn't associate to Struct Bank
 func NewBank(code string, name string) (*Bank, error) {
 	bank := Bank{
 		Id:        uuid.NewV4().String(),
 		Code:      code,
 		Name:      name,
 		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
 	}
 
 	err := bank.isValid()
