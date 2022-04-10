@@ -7,11 +7,12 @@ import (
 )
 
 type Account struct {
-	Id        string    `json:"id" valid:"required"`
-	OwnerName string    `json:"ownerName" valid:"notnull"`
+	Id        string    `json:"id" gorm:"type:uuid;primary_key" valid:"required"`
+	OwnerName string    `json:"ownerName" gorm:"column:ownerName;type:varchar(255);not null" valid:"notnull"`
 	Bank      *Bank     `valid:"-"`
-	Number    string    `json:"number" valid:"-"`
-	PixKeys   []*PixKey `valid:"-"`
+	BankId    string    `json:"bankId" gorm:"column:bankId;type:uuid;not null" valid:"notnull"`
+	Number    string    `json:"number" gorm:"type:varchar(20);not null" valid:"not null"`
+	PixKeys   []*PixKey `gorm:"ForeignKey:AccountId" valid:"-"`
 	CreatedAt time.Time `json:"createdAt" valid:"required"`
 	UpdatedAt time.Time `json:"updatedAt" valid:"required"`
 }
