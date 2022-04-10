@@ -5,4 +5,7 @@
 *.dylib
 *.test
 *.out
+.env
 /.idea/
+.vscode
+.pgdata

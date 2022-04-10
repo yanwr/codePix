@@ -25,13 +25,15 @@ type Transactions struct {
 }
 
 type Transaction struct {
-	Id                string    `json:"id" valid:"required"`
+	Id                string    `json:"id" gorm:"type:uuid;primary_key" valid:"required"`
 	AccountFrom       *Account  `valid:"-"`
-	Amount            float64   `json:"amount" valid:"notnull"`
+	AccountFromId     string    `json:"accountFromId" gorm:"column:accountFromId;type:uuid;not null" valid:"notnull"`
+	Amount            float64   `json:"amount" gorm:"type:float" valid:"notnull"`
 	PixKeyTo          *PixKey   `valid:"-"`
-	Status            string    `json:"status" valid:"notnull"`
-	Description       string    `json:"description" valid:"notnull"`
-	CancelDescription string    `json:"cancelDescription" valid:"-"`
+	PixKeyToId        string    `json:"pixKeyToId" gorm:"column:pixKeyToId;type:uuid;not null" valid:"notnull"`
+	Status            string    `json:"status" gorm:"type:varchar(20)" valid:"notnull"`
+	Description       string    `json:"description" gorm:"type:varchar(255)" valid:"notnull"`
+	CancelDescription string    `json:"cancelDescription" gorm:"type:varchar(255)" valid:"-"`
 	CreatedAt         time.Time `json:"createdAt" valid:"required"`
 	UpdatedAt         time.Time `json:"updatedAt" valid:"required"`
 }
