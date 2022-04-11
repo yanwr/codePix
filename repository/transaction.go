@@ -6,12 +6,6 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-//type TransactionRepository interface {
-//	register(transaction *Transaction) error
-//	save(transaction *Transaction) error
-//	find(transactionId string) (*Transaction, error)
-//}
-
 type TransactionRepository struct {
 	Db *gorm.DB
 }

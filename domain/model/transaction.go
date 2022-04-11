@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-type TransactionRepository interface {
+type TransactionRepositoryInterface interface {
 	Register(transaction *Transaction) error
 	Save(transaction *Transaction) error
 	Find(transactionId string) (*Transaction, error)

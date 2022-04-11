@@ -2,10 +2,10 @@ package useCase
 
 import "codePix/domain/model"
 
-// PixUseCase useCase === Services in REST
+// PixUseCase it's like Services in REST
 type PixUseCase struct {
 	// it's like interface implemented
-	PixKeyRepository model.PixKeyRepository
+	PixKeyRepository model.PixKeyRepositoryInterface
 }
 
 func (pixUseCase *PixUseCase) RegisterPixKey(key string, kind string, accountId string) (*model.PixKey, error) {

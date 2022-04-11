@@ -8,7 +8,7 @@ import (
 )
 
 // the interface will be implement on UseCase == Service
-type PixKeyRepository interface {
+type PixKeyRepositoryInterface interface {
 	Register(pixKey *PixKey) error
 	FindByKind(key string, kind string) (*PixKey, error)
 	AddBank(bank *Bank) error
@@ -18,10 +18,12 @@ type PixKeyRepository interface {
 }
 
 const (
-	EMAIL    string = "email"
-	CPF      string = "CPF"
-	ACTIVE   string = "active"
-	INACTIVE string = "inactive"
+	EMAIL       string = "email"
+	CPF         string = "CPF"
+	ACTIVE      string = "active"
+	INACTIVE    string = "inactive"
+	NOT_CREATED string = "not created"
+	CREATED     string = "created"
 )
 
 type PixKey struct {

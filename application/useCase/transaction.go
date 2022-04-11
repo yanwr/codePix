@@ -3,8 +3,8 @@ package useCase
 import "codePix/domain/model"
 
 type TransactionUseCase struct {
-	TransactionRepository model.TransactionRepository
-	PixKeyRepository      model.PixKeyRepository
+	TransactionRepository model.TransactionRepositoryInterface
+	PixKeyRepository      model.PixKeyRepositoryInterface
 }
 
 func (transactionUseCase *TransactionUseCase) RegisterTransaction(accountIdFrom string, amount float64, pixKeyIdTo string, pixKeyKindTo string, description string) (*model.Transaction, error) {
