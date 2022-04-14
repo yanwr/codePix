@@ -1,13 +1,15 @@
 package kafka
 
 import (
+	"codePix/env"
 	"fmt"
 	cKafka "github.com/confluentinc/confluent-kafka-go/kafka"
+	"os"
 )
 
 func NewKafkaProducer() *cKafka.Producer {
 	configMap := &cKafka.ConfigMap{
-		"bootstrap.servers": "kafka:9092",
+		"bootstrap.servers": os.Getenv(env.KAFKA_BOOTSTRAP_SERVER),
 	}
 	p, err := cKafka.NewProducer(configMap)
 	if err != nil {

@@ -2,6 +2,7 @@ package db
 
 import (
 	"codePix/domain/model"
+	Env "codePix/env"
 	"github.com/jinzhu/gorm"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
@@ -29,11 +30,11 @@ func ConnectDB(env string) *gorm.DB {
 	var err error
 
 	if env != "test" {
-		dsn = os.Getenv("dsn")
-		db, err = gorm.Open(os.Getenv("dbType"), dsn)
+		dsn = os.Getenv(Env.DNS)
+		db, err = gorm.Open(os.Getenv(Env.DB_TYPE), dsn)
 	} else {
-		dsn = os.Getenv("dsnTest")
-		db, err = gorm.Open(os.Getenv("dbTypeTest"), dsn)
+		dsn = os.Getenv(Env.DNS_TEST)
+		db, err = gorm.Open(os.Getenv(Env.DB_TYPE_TEST), dsn)
 	}
 
 	if err != nil {
@@ -41,11 +42,11 @@ func ConnectDB(env string) *gorm.DB {
 		panic(err)
 	}
 
-	if os.Getenv("debug") == "true" {
+	if os.Getenv(Env.DEBUG) == "true" {
 		db.LogMode(true)
 	}
 
-	if os.Getenv("AutoMigrateDb") == "true" {
+	if os.Getenv(Env.AUTO_MIGRATE) == "true" {
 		db.AutoMigrate(&model.Bank{}, &model.Account{}, &model.PixKey{}, &model.Transaction{})
 	}
 
