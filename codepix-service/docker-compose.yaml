@@ -5,6 +5,10 @@ services:
     build: .
     volumes:
       - .:/go/src/
+    ports:
+      - 50051:50051
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
 
   db:
     image: postgres:9.4
