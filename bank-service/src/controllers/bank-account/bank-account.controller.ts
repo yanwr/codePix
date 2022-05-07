@@ -5,7 +5,6 @@ import { Repository } from 'typeorm';
 
 @Controller('bank-accounts')
 export class BankAccountController {
-
   constructor(
     @InjectRepository(BankAccount)
     private bankAccountRepository: Repository<BankAccount>

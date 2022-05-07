@@ -1,28 +1,5 @@
-version: "3"
-
+version: '3'
 services:
-  app:
-    build: .
-    volumes:
-      - .:/go/src/
-    ports:
-      - 50051:50051
-    extra_hosts:
-      - "host.docker.internal:172.17.0.1"
-
-  db:
-    image: postgres:9.4
-    restart: always
-    tty: true
-    ports:
-      - "5432:5432"
-    volumes:
-      - .pgdata:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_PASSWORD=root
-      - POSTGRES_DB=codepix
-      - PGDATA=/var/lib/postgresql/pgdata
-
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     environment:
@@ -57,7 +34,7 @@ services:
         kafka-topics --create --topic=transaction_confirmation --if-not-exists --bootstrap-server=kafka:9092 &&
         kafka-topics --create --topic=bank001 --if-not-exists --bootstrap-server=kafka:9092 &&
         kafka-topics --create --topic=bank002 --if-not-exists --bootstrap-server=kafka:9092"
-
+  
   control-center:
     image: confluentinc/cp-enterprise-control-center:6.0.1
     hostname: control-center
@@ -69,14 +46,3 @@ services:
       CONTROL_CENTER_BOOTSTRAP_SERVERS: 'kafka:9092'
       CONTROL_CENTER_REPLICATION_FACTOR: 1
       PORT: 9021
-
-  pgadmin:
-    image: dpage/pgadmin4
-    tty: true
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@user.com
-      - PGADMIN_DEFAULT_PASSWORD=123456
-    ports:
-      - "9000:80"
-    depends_on:
-      - db
