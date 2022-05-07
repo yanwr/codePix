@@ -1,6 +1,6 @@
 import { Controller, Get, Param, ParseUUIDPipe } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { BankAccount } from 'src/models/bankAccount.model';
+import { BankAccount } from 'src/models/bank-account.model';
 import { Repository } from 'typeorm';
 
 @Controller('bank-accounts')

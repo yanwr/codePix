@@ -3,8 +3,9 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { BankAccount } from './models/bankAccount.model';
+import { BankAccount } from './models/bank-account.model';
 import { BankAccountController } from './controllers/bank-account/bank-account.controller';
+import { PixKeyController } from './controllers/pix-key/pix-key.controller';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { BankAccountController } from './controllers/bank-account/bank-account.c
     }),
     TypeOrmModule.forFeature([BankAccount])
   ],
-  controllers: [AppController, BankAccountController],
+  controllers: [AppController, BankAccountController, PixKeyController],
   providers: [AppService],
 })
 export class AppModule {}
