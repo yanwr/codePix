@@ -1,5 +1,5 @@
 import {BeforeInsert, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn} from "typeorm";
-import { v4 as uuidV4 } from "uuid"
+import { v4 as uuidV4 } from "uuid";
 
 @Entity({ name: "bankAccounts" })
 export class BankAccount {

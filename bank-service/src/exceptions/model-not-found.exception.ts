@@ -1,6 +1,6 @@
 import { ArgumentsHost, Catch, ExceptionFilter } from "@nestjs/common";
 import { Response } from "express";
-import { EntityNotFoundError } from "typeorm";
+import { EntityNotFoundError } from "typeorm/error/EntityNotFoundError";
 
 @Catch(EntityNotFoundError)
 export class ModelNotFoundExceptionFilter implements ExceptionFilter {
@@ -10,7 +10,7 @@ export class ModelNotFoundExceptionFilter implements ExceptionFilter {
       return response.status(404).json({
         error: {
           error: "Not Found",
-          message: exception.message
+          message: exception.message,
         }
       })
   }
