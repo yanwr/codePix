@@ -35,6 +35,21 @@ import { Transaction } from './models/transaction.model';
           protoPath: [join(__dirname, "protofiles/pixkey.proto")]
         }
       }
+    ]),
+    ClientsModule.register([
+      {
+        name: "TRANSACTION_SERVICE",
+        transport: Transport.KAFKA,
+        options: {
+          client: {
+            clientId: process.env.KAFKA_CLIENT_ID,
+            brokers: [`${process.env.KAFKA_BROKER}:${process.env.KAFKA_BROKER_PORT}`]
+          },
+          consumer: {
+            groupId: !process.env.KAFKA_CONSUMER_GROUP_ID || process.env.KAFKA_CONSUMER_GROUP_ID === '' ? "my-consumer-" + Math.random() : process.env.KAFKA_CONSUMER_GROUP_ID
+          }
+        }
+      }
     ])
   ],
   controllers: [AppController, BankAccountController, PixKeyController, TransactionController],
