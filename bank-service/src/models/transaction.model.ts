@@ -66,14 +66,16 @@ export class Transaction {
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 
-  @BeforeInsert() generateId() {
+  @BeforeInsert() 
+  generateId() {
     if (this.id) {
       return;
     }
     this.id = uuidv4();
   }
 
-  @BeforeInsert() generateExternalId() {
+  @BeforeInsert() 
+  generateExternalId() {
     if (this.externalId) {
       return;
     }
