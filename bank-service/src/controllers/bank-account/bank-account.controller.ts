@@ -14,6 +14,6 @@ export class BankAccountController {
   
   @Get(":bankAccountId")
   getBankAccount(@Param("bankAccountId", new ParseUUIDPipe({ version: "4"})) bankAccountId: string) {
-    return this.bankAccountService.findOne(bankAccountId);
+    return this.bankAccountService.findOneOrThrow(bankAccountId);
   }
 }

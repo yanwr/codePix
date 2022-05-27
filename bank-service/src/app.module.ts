@@ -14,6 +14,7 @@ import { Transaction } from './models/transaction.model';
 import { BankAccountService } from './services/bank-account/bank-account.service';
 import { PixKeyService } from './services/pix-key/pix-key.service';
 import { TransactionService } from './services/transaction/transaction.service';
+import { GrpcServices } from './grpc/grpc.service';
 
 @Module({
   imports: [
@@ -56,6 +57,6 @@ import { TransactionService } from './services/transaction/transaction.service';
     ])
   ],
   controllers: [AppController, BankAccountController, PixKeyController, TransactionController],
-  providers: [AppService, BankAccountService, PixKeyService, TransactionService],
+  providers: [AppService, GrpcServices, BankAccountService, PixKeyService, TransactionService],
 })
 export class AppModule {}

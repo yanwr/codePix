@@ -14,7 +14,7 @@ export class BankAccountService {
     return this.bankAccountRepository.find();
   }
 
-  findOne(id: string): Promise<BankAccount> {
+  findOneOrThrow(id: string): Promise<BankAccount> {
     return this.bankAccountRepository.findOneOrFail(id);
   }
 }
