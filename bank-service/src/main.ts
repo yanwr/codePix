@@ -15,7 +15,7 @@ async function bootstrap() {
         brokers: [`${process.env.KAFKA_BROKER}:${process.env.KAFKA_BROKER_PORT}`]
       },
       consumer: {
-        groupId: !process.env.KAFKA_CONSUMER_GROUP_ID || process.env.KAFKA_CONSUMER_GROUP_ID === '' ? "my-consumer-" + Math.random() : process.env.KAFKA_CONSUMER_GROUP_ID
+        groupId: !process.env.KAFKA_CONSUMER_GROUP_ID || process.env.KAFKA_CONSUMER_GROUP_ID === "" ? "my-consumer-" + Math.random() : process.env.KAFKA_CONSUMER_GROUP_ID
       }
     }
   });
